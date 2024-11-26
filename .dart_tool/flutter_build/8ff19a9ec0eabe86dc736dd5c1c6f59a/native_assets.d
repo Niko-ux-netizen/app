@@ -1,1 +1,0 @@
- C:\\School\\Mobile\ Applications\\mobile-app-team-7\\app\\team7_application\\.dart_tool\\flutter_build\\8ff19a9ec0eabe86dc736dd5c1c6f59a\\native_assets.yaml: 
