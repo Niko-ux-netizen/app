@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'pages/watchlist_page.dart';
+import 'pages/history_page.dart';
+import 'pages/genres_page.dart';
+import 'pages/party_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -161,7 +165,6 @@ class LoginPage extends StatelessWidget {
                   foregroundColor: const Color(0xFF262626),
                 ),
                 onPressed: () {
-                  // Handle login logic here
                   print('Login button pressed');
                 },
                 child: const Text('Login'),
@@ -174,82 +177,4 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-// Watchlist Page
-class WatchlistPage extends StatelessWidget {
-  const WatchlistPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Watchlist'),
-      ),
-      body: const Center(
-        child: Text(
-          'Watchlist',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFDAAB2D)),
-        ),
-      ),
-    );
-  }
-}
-
-// History Page
-class HistoryPage extends StatelessWidget {
-  const HistoryPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('History'),
-      ),
-      body: const Center(
-        child: Text(
-          'History',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFDAAB2D)),
-        ),
-      ),
-    );
-  }
-}
-
-// Genres Page
-class GenresPage extends StatelessWidget {
-  const GenresPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Genres'),
-      ),
-      body: const Center(
-        child: Text(
-          'Genres',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFDAAB2D)),
-        ),
-      ),
-    );
-  }
-}
-
-// Party Page
-class PartyPage extends StatelessWidget {
-  const PartyPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Party'),
-      ),
-      body: const Center(
-        child: Text(
-          'Party',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFDAAB2D)),
-        ),
-      ),
-    );
-  }
-}
