@@ -13,7 +13,15 @@ class MyApp extends StatelessWidget {
       title: 'Login Form App',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFDAAB2D),
+          brightness: Brightness.dark,
+        ),
+        scaffoldBackgroundColor: const Color(0xFF262626),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF400128),
+          foregroundColor: Color(0xFFDAAB2D),
+        ),
       ),
       home: const LoginPage(),
     );
@@ -26,6 +34,87 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login'),
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+          ),
+        ),
+      ),
+      drawer: Drawer(
+        backgroundColor: const Color(0xFF262626),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color(0xFF400128),
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  color: Color(0xFFDAAB2D),
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.list, color: Color(0xFFDAAB2D)),
+              title: const Text('Watchlist', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WatchlistPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.history, color: Color(0xFFDAAB2D)),
+              title: const Text('History', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HistoryPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.category, color: Color(0xFFDAAB2D)),
+              title: const Text('Genres', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const GenresPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.group, color: Color(0xFFDAAB2D)),
+              title: const Text('Party', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PartyPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.login, color: Color(0xFFDAAB2D)),
+              title: const Text('Login', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -34,29 +123,43 @@ class LoginPage extends StatelessWidget {
             children: [
               const Text(
                 'Login',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFDAAB2D),
+                ),
               ),
               const SizedBox(height: 24),
               TextField(
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   labelText: 'Username',
+                  labelStyle: const TextStyle(color: Color(0xFFDAAB2D)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
+                    borderSide: const BorderSide(color: Color(0xFFDAAB2D)),
                   ),
                 ),
               ),
               const SizedBox(height: 16),
               TextField(
                 obscureText: true,
+                style: const TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                   labelText: 'Password',
+                  labelStyle: const TextStyle(color: Color(0xFFDAAB2D)),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
+                    borderSide: const BorderSide(color: Color(0xFFDAAB2D)),
                   ),
                 ),
               ),
               const SizedBox(height: 24),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFDAAB2D),
+                  foregroundColor: const Color(0xFF262626),
+                ),
                 onPressed: () {
                   // Handle login logic here
                   print('Login button pressed');
@@ -65,6 +168,86 @@ class LoginPage extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// Watchlist Page
+class WatchlistPage extends StatelessWidget {
+  const WatchlistPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Watchlist'),
+      ),
+      body: const Center(
+        child: Text(
+          'Watchlist',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFDAAB2D)),
+        ),
+      ),
+    );
+  }
+}
+
+// History Page
+class HistoryPage extends StatelessWidget {
+  const HistoryPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('History'),
+      ),
+      body: const Center(
+        child: Text(
+          'History',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFDAAB2D)),
+        ),
+      ),
+    );
+  }
+}
+
+// Genres Page
+class GenresPage extends StatelessWidget {
+  const GenresPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Genres'),
+      ),
+      body: const Center(
+        child: Text(
+          'Genres',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFDAAB2D)),
+        ),
+      ),
+    );
+  }
+}
+
+// Party Page
+class PartyPage extends StatelessWidget {
+  const PartyPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Party'),
+      ),
+      body: const Center(
+        child: Text(
+          'Party',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFDAAB2D)),
         ),
       ),
     );
