@@ -23,3 +23,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/interstellar.jpg
+    - assets/everything_everywhere.jpg
+    - assets/avatar.jpeg
+    - assets/top_gun.jpg
+    - assets/oppenheimer.jpg
+    - assets/inside_out.jpg

@@ -3,7 +3,7 @@ import 'pages/watchlist_page.dart';
 import 'pages/history_page.dart';
 import 'pages/genres_page.dart';
 import 'pages/party_page.dart';
-
+import 'pages/login_page.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -27,19 +27,19 @@ class MyApp extends StatelessWidget {
           foregroundColor: Color(0xFFDAAB2D),
         ),
       ),
-      home: const LoginPage(),
+      home: const HomePage(),
     );
   }
 }
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Bingee'),
         leading: Builder(
           builder: (context) => IconButton(
             icon: const Icon(Icons.menu),
@@ -119,58 +119,60 @@ class LoginPage extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Login',
-                style: TextStyle(
+      body: Container(
+        width: double.infinity,
+        color: const Color(0xFF262626), // Use "color" to set the background color
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Add an icon or logo above the text (optional)
+            Icon(
+              Icons.movie_creation_outlined,
+              size: 100,
+              color: Color(0xFFDAAB2D),
+            ),
+            const SizedBox(height: 20), // Space between the icon and text
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                'Welcome to Bingee, the #1 personal movie app in the world!',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFDAAB2D),
                 ),
               ),
-              const SizedBox(height: 24),
-              TextField(
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                  labelStyle: const TextStyle(color: Color(0xFFDAAB2D)),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: const BorderSide(color: Color(0xFFDAAB2D)),
+            ),
+            const SizedBox(height: 20), // Space below the text
+            // Add a button for a potential action
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GenresPage(),
                   ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFDAAB2D),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
                 ),
               ),
-              const SizedBox(height: 16),
-              TextField(
-                obscureText: true,
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  labelStyle: const TextStyle(color: Color(0xFFDAAB2D)),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: const BorderSide(color: Color(0xFFDAAB2D)),
-                  ),
+              child: const Text(
+                'Get Started',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
               ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFDAAB2D),
-                  foregroundColor: const Color(0xFF262626),
-                ),
-                onPressed: () {
-                  print('Login button pressed');
-                },
-                child: const Text('Login'),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
