@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:namer_app/pages/rate_page.dart';
 import 'pages/watchlist_page.dart';
 import 'pages/history_page.dart';
 import 'pages/genres_page.dart';
@@ -116,6 +117,7 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
+
           ],
         ),
       ),

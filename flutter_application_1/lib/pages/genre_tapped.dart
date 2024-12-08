@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:namer_app/pages/rate_page.dart';
 
 class GenreTappedPage extends StatelessWidget {
   final String genreTitle;
@@ -39,18 +40,13 @@ class GenreTappedPage extends StatelessWidget {
                   final movie = movies[index];
                   return GestureDetector(
                     onTap: () {
-                      // You can add any specific action for the movie on tap
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          title: Text(movie['title']!),
-                          content: const Text("To be implemented: singular movie page"),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: const Text('Close'),
-                            ),
-                          ],
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RatePage(
+                            title: movie['title']!,
+                            image: movie['image']!,
+                          ),
                         ),
                       );
                     },
