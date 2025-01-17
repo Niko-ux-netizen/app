@@ -1,7 +1,7 @@
 name: namer_app
 description: A new Flutter project.
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 0.0.1+1
 
@@ -12,8 +12,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  card_swiper:
   english_words: ^4.0.0
   provider: ^6.0.0
+  flutter_card_swiper: ^7.0.2
 
 dev_dependencies:
   flutter_test:

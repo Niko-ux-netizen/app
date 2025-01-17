@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:namer_app/pages/swipe_page.dart';
 import 'pages/watchlist_page.dart';
 import 'pages/history_page.dart';
 import 'pages/genres_page.dart';
 import 'pages/party_page.dart';
 import 'pages/login_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -68,17 +70,20 @@ class HomePage extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.list, color: Color(0xFFDAAB2D)),
-              title: const Text('Watchlist', style: TextStyle(color: Colors.white)),
+              title: const Text('Watchlist',
+                  style: TextStyle(color: Colors.white)),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const WatchlistPage()),
+                  MaterialPageRoute(
+                      builder: (context) => const WatchlistPage()),
                 );
               },
             ),
             ListTile(
               leading: const Icon(Icons.history, color: Color(0xFFDAAB2D)),
-              title: const Text('History', style: TextStyle(color: Colors.white)),
+              title:
+                  const Text('History', style: TextStyle(color: Colors.white)),
               onTap: () {
                 Navigator.push(
                   context,
@@ -88,7 +93,8 @@ class HomePage extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.category, color: Color(0xFFDAAB2D)),
-              title: const Text('Genres', style: TextStyle(color: Colors.white)),
+              title:
+                  const Text('Genres', style: TextStyle(color: Colors.white)),
               onTap: () {
                 Navigator.push(
                   context,
@@ -116,13 +122,23 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-
+            ListTile(
+              leading: const Icon(Icons.group, color: Color(0xFFDAAB2D)),
+              title: const Text('Swipe', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SwipePage()),
+                );
+              },
+            ),
           ],
         ),
       ),
       body: Container(
         width: double.infinity,
-        color: const Color(0xFF262626), // Use "color" to set the background color
+        color:
+            const Color(0xFF262626), // Use "color" to set the background color
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -159,7 +175,8 @@ class HomePage extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFFDAAB2D),
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
@@ -179,5 +196,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-
-
