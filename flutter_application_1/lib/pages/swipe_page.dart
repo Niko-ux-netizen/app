@@ -14,17 +14,6 @@ class SwipePage extends StatefulWidget {
 class _SwipePageState extends State<SwipePage> {
   final List<Movie> movies = [
     Movie(
-      title: 'Interstellar',
-      genres: [
-        Genre(name: 'Science Fiction'),
-        Genre(name: 'Horror'),
-        Genre(name: 'Space'),
-      ],
-      producer: 'Christopher Nolan',
-      description:
-          "Interstellar is a 2014 epic science fiction drama film directed by Christopher Nolan, who co-wrote the screenplay with his brother Jonathan Nolan.",
-    ),
-    Movie(
       title: 'Inception',
       genres: [
         Genre(name: 'Science Fiction'),
@@ -34,6 +23,17 @@ class _SwipePageState extends State<SwipePage> {
       producer: 'Christopher Nolan',
       description:
           "Inception is a 2010 science fiction action film written and directed by Christopher Nolan, who also produced the film with Emma Thomas.",
+    ),
+    Movie(
+      title: 'Interstellar',
+      genres: [
+        Genre(name: 'Science Fiction'),
+        Genre(name: 'Horror'),
+        Genre(name: 'Space'),
+      ],
+      producer: 'Christopher Nolan',
+      description:
+          "Interstellar is a 2014 epic science fiction drama film directed by Christopher Nolan, who co-wrote the screenplay with his brother Jonathan Nolan.",
     ),
     Movie(
       title: 'The Dark Knight',
@@ -74,7 +74,7 @@ class _SwipePageState extends State<SwipePage> {
               ),
             ),
             GenreInfo(
-              movie: movies[1],
+              movie: movies[currentIndex],
             )
           ]),
         ));

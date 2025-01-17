@@ -26,6 +26,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/
     - assets/interstellar.jpg
     - assets/everything_everywhere.jpg
     - assets/avatar.jpeg
