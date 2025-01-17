@@ -7,11 +7,11 @@ class GenresPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final genres = [
-      {'title': 'Fiction', 'image': 'assets/interstellar.jpg'},
-      {'title': 'Comedy', 'image': 'assets/everything_everywhere.jpg'},
-      {'title': 'Aliens', 'image': 'assets/avatar.jpeg'},
-      {'title': 'Action', 'image': 'assets/top_gun.jpg'},
-      {'title': 'Based On Real Stories', 'image': 'assets/oppenheimer.jpg'},
+      {'title': 'Drama', 'image': 'assets/interstellar.jpg'},
+      {'title': 'Action', 'image': 'assets/everything_everywhere.jpg'},
+      {'title': 'History', 'image': 'assets/avatar.jpeg'},
+      {'title': 'Comedy', 'image': 'assets/top_gun.jpg'},
+      {'title': 'Sport', 'image': 'assets/oppenheimer.jpg'},
       {'title': 'Animation', 'image': 'assets/inside_out.jpg'},
     ];
 

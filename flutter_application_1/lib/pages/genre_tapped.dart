@@ -1,96 +1,117 @@
 import 'package:flutter/material.dart';
 import 'package:namer_app/pages/rate_page.dart';
 
-class GenreTappedPage extends StatelessWidget {
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:namer_app/pages/rate_page.dart';
+
+import '../service/Movie.dart';
+import '../service/movie_fetcher.dart';
+
+
+class GenreTappedPage extends StatefulWidget {
   final String genreTitle;
 
   const GenreTappedPage({super.key, required this.genreTitle});
+  @override
+  _GenreTappedPageState createState() => _GenreTappedPageState();
+}
+
+class _GenreTappedPageState extends State<GenreTappedPage> {
+  late Future<List<Movie>> _moviesByGenre;
+  final MovieService movieService = MovieService();
+
+  @override
+  void initState() {
+    super.initState();
+    _moviesByGenre = movieService.getAllMoviesByGenre(widget.genreTitle.toUpperCase());
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Define the movies with titles
-    final movies = [
-      {'title': 'Interstellar', 'image': 'assets/interstellar.jpg'},
-      {'title': 'Everything Everywhere All At Once', 'image': 'assets/everything_everywhere.jpg'},
-      {'title': 'Avatar: The Way of Water', 'image': 'assets/avatar.jpeg'},
-      {'title': 'Top Gun: Maverick', 'image': 'assets/top_gun.jpg'},
-      {'title': 'Oppenheimer', 'image': 'assets/oppenheimer.jpg'},
-      {'title': 'Inside Out', 'image': 'assets/inside_out.jpg'},
-    ];
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(genreTitle), // Display the genreTitle
+        title: Text(widget.genreTitle),
         backgroundColor: Colors.black,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Number of columns
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
-                  childAspectRatio: 2 / 3, // Adjust card size
-                ),
-                itemCount: movies.length, // Number of items in the list
-                itemBuilder: (context, index) {
-                  final movie = movies[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RatePage(
-                            title: movie['title']!,
-                            image: movie['image']!,
+      body: FutureBuilder<List<Movie>>(
+        future: _moviesByGenre,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text('No movies found'));
+          }
+
+          final movies = snapshot.data!;
+
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 8.0,
+                childAspectRatio: 2 / 3,
+              ),
+              itemCount: movies.length,
+              itemBuilder: (context, index) {
+                final movie = movies[index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RatePage(
+                          title: movie.title,
+                          image: movie.image,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Card(
+                    color: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
+                            child: Image.network(
+                              movie.image,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      );
-                    },
-                    child: Card(
-                      color: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                              ),
-                              child: Image.asset(
-                                movie['image']!, // Movie image
-                                fit: BoxFit.cover,
-                              ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            movie.title,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              movie['title']!, // Movie title
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
-          ],
-        ),
+          );
+        },
       ),
       backgroundColor: Colors.black,
     );
