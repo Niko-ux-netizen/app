@@ -11,6 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^0.15.0
 
   card_swiper:
   english_words: ^4.0.0
