@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:namer_app/pages/genre_for_swipe.dart';
 import 'package:namer_app/pages/swipe_page.dart';
 import 'pages/watchlist_page.dart';
 import 'pages/history_page.dart';
@@ -129,6 +130,18 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const SwipePage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.category, color: Color(0xFFDAAB2D)),
+              title: const Text('Genres for Swipe', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const GenresForSwipe(),
+                  ),
                 );
               },
             ),
