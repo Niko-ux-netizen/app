@@ -18,4 +18,8 @@ class Genre {
         return Colors.grey;
     }
   }
+
+  factory Genre.fromJson(Map<String, dynamic> json) => Genre(
+        name: json['name'],
+      );
 }

@@ -18,32 +18,62 @@ class SwipeCard extends StatelessWidget {
       child: CardSwiper(
         cardsCount: movies.length,
         onSwipe: (previousIndex, newIndex, direction) {
+          if (direction == CardSwiperDirection.left) {
+            print("Swiped to left");
+          }
+          if (direction == CardSwiperDirection.right) {
+            print("Swiped to right");
+          }
           if (newIndex != null) {
             onSwipe(newIndex);
           }
           return true;
         },
-        cardBuilder: (context, index, horizontalThreshold, verticalThreshold) {
+        cardBuilder: (context, index, horizontalOffsetPercentage,
+            verticalOffsetPercentage) {
           final movie = movies[index];
-          return Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/${movie.title}.jpg'),
-                fit: BoxFit.cover,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  blurRadius: 8.0,
-                  spreadRadius: 2.0,
-                  offset: Offset(2.0, 4.0),
+
+          double offset = horizontalOffsetPercentage.toDouble();
+
+          double opacity = (offset.abs()) / 1000;
+          opacity = opacity.clamp(0.0, 1.0);
+          print("Calculated opacity: $opacity");
+
+          Color overlayColor = Colors.transparent;
+          if (offset < 0) {
+            overlayColor = Colors.green.withOpacity(opacity);
+          } else if (offset > 0) {
+            overlayColor = Colors.red.withOpacity(opacity);
+          }
+
+          return Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/${movie.title}.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 8.0,
+                      spreadRadius: 2.0,
+                      offset: Offset(2.0, 4.0),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            alignment: Alignment.bottomLeft,
-            padding: const EdgeInsets.all(16.0),
+                alignment: Alignment.bottomLeft,
+                padding: const EdgeInsets.all(16.0),
+              ),
+              Container(
+                color: overlayColor,
+              ),
+            ],
           );
         },
+        allowedSwipeDirection:
+            AllowedSwipeDirection.only(left: true, right: true),
       ),
     );
   }

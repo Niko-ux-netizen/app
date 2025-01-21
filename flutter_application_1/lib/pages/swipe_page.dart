@@ -1,3 +1,74 @@
+// import 'package:flutter/material.dart';
+// import 'package:namer_app/model/genre.dart';
+// import 'package:namer_app/model/movie.dart';
+// import 'package:namer_app/pages/swipe_card.dart';
+// import 'package:namer_app/pages/swipe_card_info.dart';
+
+// class SwipePage extends StatefulWidget {
+//   const SwipePage({super.key});
+
+//   @override
+//   State<SwipePage> createState() => _SwipePageState();
+// }
+
+// class _SwipePageState extends State<SwipePage> {
+//   late Future<List<Movie>> futureMovies;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     futureMovies = fetchMovies();
+//   }
+
+//   int currentIndex = 0;
+
+//   void handleSwipe(int newIndex) {
+//     setState(() {
+//       currentIndex = newIndex;
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Swipe'),
+//       ),
+//       body: FutureBuilder<List<Movie>>(
+//         future: futureMovies,
+//         builder: (context, snapshot) {
+//           if (snapshot.connectionState == ConnectionState.waiting) {
+//             return const Center(child: CircularProgressIndicator());
+//           } else if (snapshot.hasError) {
+//             return Center(child: Text('Error: ${snapshot.error}'));
+//           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+//             return const Center(child: Text('No movies found.'));
+//           }
+
+//           final movies = snapshot.data!;
+
+//           return SingleChildScrollView(
+//             child: Stack(
+//               children: [
+//                 SizedBox(
+//                   height: MediaQuery.of(context).size.height,
+//                   child: SwipeCard(
+//                     movies: movies,
+//                     onSwipe: handleSwipe,
+//                   ),
+//                 ),
+//                 GenreInfo(
+//                   movie: movies[currentIndex],
+//                 ),
+//               ],
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
+
 import 'package:flutter/material.dart';
 import 'package:namer_app/model/genre.dart';
 import 'package:namer_app/model/movie.dart';
