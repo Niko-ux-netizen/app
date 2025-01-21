@@ -77,7 +77,7 @@ class _GenreTappedPageState extends State<GenreTappedPage> {
                       MaterialPageRoute(
                         builder: (context) => RatePage(
                           title: movie.title,
-                          image: movie.image,
+                          image: movie.image ?? 'https://via.placeholder.com/150',
                         ),
                       ),
                     );
@@ -96,9 +96,9 @@ class _GenreTappedPageState extends State<GenreTappedPage> {
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10),
                             ),
-                            child: Image.network(
-                              movie.image,
-                              fit: BoxFit.cover,
+                          child: Image.network(
+                            movie.image ?? 'https://via.placeholder.com/150', // Use placeholder if image is null
+                            fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                                 print('Image load error: $error');
                                 return const Center(
