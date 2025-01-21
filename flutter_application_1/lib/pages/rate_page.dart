@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:namer_app/service/Review.dart';
+import 'package:namer_app/model/Review.dart';
+import 'package:namer_app/service/review_service.dart';
 
 class RatePage extends StatefulWidget {
   final String title;
@@ -14,6 +15,7 @@ class RatePage extends StatefulWidget {
 class _RatePageState extends State<RatePage> {
   int selectedStars = 0;
   final TextEditingController reviewController = TextEditingController();
+  final ReviewService reviewService = ReviewService();
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +72,6 @@ class _RatePageState extends State<RatePage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                style: const TextStyle(
-                  color: Colors.black, // Change text color to black
-                ),
               ),
             ),
             const SizedBox(height: 16),
@@ -89,14 +88,14 @@ class _RatePageState extends State<RatePage> {
                   child: const Text("Cancel"),
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     Review review = Review(
                       id: DateTime.now().toString(),
                       rating: selectedStars,
                       comment: reviewController.text,
                     );
 
-                    print('Review: ${review.toJson()}');
+                    await reviewService.addOrUpdateReview(review, 'Caann@mail.com', widget.title);
 
                     Future.delayed(const Duration(seconds: 1), () {
                       Navigator.pop(context);
