@@ -69,6 +69,9 @@ class _RatePageState extends State<RatePage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
+                style: const TextStyle(
+                  color: Colors.black, // Change text color to black
+                ),
               ),
             ),
             const SizedBox(height: 16),
