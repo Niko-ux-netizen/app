@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:namer_app/model/genre.dart';
+import 'package:namer_app/model/movie.dart';
 
 class GenreInfo extends StatelessWidget {
-  Movie dummyMovie = Movie(
-    title: 'Interstellar',
-    genres: [
-      Genre(name: 'Science Fiction'),
-      Genre(name: 'Horror'),
-      Genre(name: 'Space'),
-    ],
-    producer: 'Christopher Nolan',
-    description:
-        "Hallo Anthonny en Nikolai, alles goed met jullie? Ik heb mijn best gedaan op deze pagina en chatGPT heeft mij goed kunne helpen, danku!",
-  );
+  final Movie movie;
+
+  const GenreInfo({Key? key, required this.movie}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +16,7 @@ class GenreInfo extends StatelessWidget {
           spacing: 8.0,
           runSpacing: 8.0,
           children: [
-            ...dummyMovie.genres.map(
+            ...movie.genres.map(
               (genre) => Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24.0,
@@ -69,7 +63,7 @@ class GenreInfo extends StatelessWidget {
                 ],
               ),
               child: Text(
-                dummyMovie.producer,
+                movie.producer,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.white,
@@ -85,7 +79,7 @@ class GenreInfo extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              dummyMovie.title.toUpperCase(),
+              movie.title.toUpperCase(),
               style: const TextStyle(
                 fontSize: 30.0,
                 fontWeight: FontWeight.bold,
@@ -100,7 +94,7 @@ class GenreInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                dummyMovie.description,
+                movie.description,
                 style: TextStyle(fontSize: 16.0),
               ),
               SizedBox(height: 16.0),
@@ -125,37 +119,4 @@ class GenreInfo extends StatelessWidget {
       ],
     );
   }
-}
-
-class Genre {
-  final String name;
-  final Color color;
-
-  Genre({required this.name}) : color = _getColorForGenre(name);
-
-  static Color _getColorForGenre(String name) {
-    switch (name.toLowerCase()) {
-      case 'horror':
-        return Colors.red;
-      case 'science fiction':
-        return Colors.purple;
-      case 'space':
-        return Colors.blue;
-      default:
-        return Colors.grey;
-    }
-  }
-}
-
-class Movie {
-  final String title;
-  final List<Genre> genres;
-  final String producer;
-  final String description;
-
-  Movie(
-      {required this.title,
-      required this.genres,
-      required this.producer,
-      required this.description});
 }

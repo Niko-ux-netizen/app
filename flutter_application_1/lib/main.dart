@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:namer_app/pages/genre_for_swipe.dart';
 import 'package:namer_app/pages/swipe_page.dart';
 import 'pages/watchlist_page.dart';
 import 'pages/history_page.dart';
@@ -83,7 +84,7 @@ class HomePage extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.history, color: Color(0xFFDAAB2D)),
               title:
-                  const Text('History', style: TextStyle(color: Colors.white)),
+              const Text('History', style: TextStyle(color: Colors.white)),
               onTap: () {
                 Navigator.push(
                   context,
@@ -94,7 +95,7 @@ class HomePage extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.category, color: Color(0xFFDAAB2D)),
               title:
-                  const Text('Genres', style: TextStyle(color: Colors.white)),
+              const Text('Genres', style: TextStyle(color: Colors.white)),
               onTap: () {
                 Navigator.push(
                   context,
@@ -132,13 +133,25 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.category, color: Color(0xFFDAAB2D)),
+              title: const Text('Genres for Swipe', style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const GenresForSwipe(),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
       body: Container(
         width: double.infinity,
         color:
-            const Color(0xFF262626), // Use "color" to set the background color
+        const Color(0xFF262626), // Use "color" to set the background color
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -176,7 +189,7 @@ class HomePage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xFFDAAB2D),
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
