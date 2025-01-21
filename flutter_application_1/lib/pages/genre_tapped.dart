@@ -9,7 +9,6 @@ import 'package:namer_app/pages/rate_page.dart';
 import '../service/Movie.dart';
 import '../service/movie_fetcher.dart';
 
-
 class GenreTappedPage extends StatefulWidget {
   final String genreTitle;
 
@@ -26,7 +25,13 @@ class _GenreTappedPageState extends State<GenreTappedPage> {
   void initState() {
     super.initState();
     _moviesByGenre = movieService.getAllMovies();
-    print(_moviesByGenre.toString());
+
+    // Debug: Log the Future for movies
+    _moviesByGenre.then((movies) {
+      print('Fetched movies: $movies');
+    }).catchError((error) {
+      print('Error fetching movies: $error');
+    });
   }
 
   @override
@@ -42,12 +47,16 @@ class _GenreTappedPageState extends State<GenreTappedPage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
+            print('Snapshot error: ${snapshot.error}');
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            print('No movies found');
             return const Center(child: Text('No movies found'));
           }
 
+          // Debug: Log the movies data
           final movies = snapshot.data!;
+          print('Movies in FutureBuilder: $movies');
 
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -90,6 +99,12 @@ class _GenreTappedPageState extends State<GenreTappedPage> {
                             child: Image.network(
                               movie.image,
                               fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                print('Image load error: $error');
+                                return const Center(
+                                  child: Icon(Icons.error, color: Colors.red),
+                                );
+                              },
                             ),
                           ),
                         ),

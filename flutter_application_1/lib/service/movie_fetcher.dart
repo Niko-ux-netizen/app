@@ -11,7 +11,14 @@ class MovieService {
 
     if (response.statusCode == 200) {
       final List<dynamic> moviesJson = json.decode(response.body);
-      return moviesJson.map((json) => Movie.fromJson(json)).toList();
+
+      // Debug: Log raw JSON response
+      print('Raw JSON response: ${response.body}');
+
+      // Parse and log movies list
+      final movies = moviesJson.map((json) => Movie.fromJson(json)).toList();
+      print('Parsed movies: $movies');
+      return movies;
     } else {
       throw Exception('Failed to load movies: ${response.reasonPhrase}');
     }
