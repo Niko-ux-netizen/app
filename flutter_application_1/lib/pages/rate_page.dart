@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:namer_app/service/Review.dart';
 
 class RatePage extends StatefulWidget {
-  final String title; // Movie title
-  final String image; // Movie poster path
+  final String title;
+  final String image;
 
   const RatePage({super.key, required this.title, required this.image});
 
@@ -11,7 +12,7 @@ class RatePage extends StatefulWidget {
 }
 
 class _RatePageState extends State<RatePage> {
-  int selectedStars = 0; // Number of stars selected
+  int selectedStars = 0;
   final TextEditingController reviewController = TextEditingController();
 
   @override
@@ -26,7 +27,7 @@ class _RatePageState extends State<RatePage> {
         child: Column(
           children: [
             Expanded(
-              flex: 2, // Poster takes most of the space
+              flex: 2,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.asset(
@@ -43,7 +44,7 @@ class _RatePageState extends State<RatePage> {
                 return IconButton(
                   onPressed: () {
                     setState(() {
-                      selectedStars = index + 1; // Update stars on selection
+                      selectedStars = index + 1;
                     });
                   },
                   icon: Icon(
@@ -77,7 +78,7 @@ class _RatePageState extends State<RatePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context); // Cancel button action
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
@@ -86,14 +87,17 @@ class _RatePageState extends State<RatePage> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Handle Post action
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          "You rated ${widget.title} with $selectedStars stars!",
-                        ),
-                      ),
+                    Review review = Review(
+                      id: DateTime.now().toString(),
+                      rating: selectedStars,
+                      comment: reviewController.text,
                     );
+
+                    print('Review: ${review.toJson()}');
+
+                    Future.delayed(const Duration(seconds: 1), () {
+                      Navigator.pop(context);
+                    });
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
