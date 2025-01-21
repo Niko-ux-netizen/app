@@ -25,7 +25,8 @@ class _GenreTappedPageState extends State<GenreTappedPage> {
   @override
   void initState() {
     super.initState();
-    _moviesByGenre = movieService.getAllMoviesByGenre(widget.genreTitle.toUpperCase());
+    _moviesByGenre = movieService.getAllMovies();
+    print(_moviesByGenre.toString());
   }
 
   @override
