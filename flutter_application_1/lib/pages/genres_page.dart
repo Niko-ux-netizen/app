@@ -7,12 +7,21 @@ class GenresPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final genres = [
-      {'title': 'Drama', 'image': 'assets/interstellar.jpg'},
-      {'title': 'Action', 'image': 'assets/everything_everywhere.jpg'},
-      {'title': 'History', 'image': 'assets/avatar.jpeg'},
-      {'title': 'Comedy', 'image': 'assets/top_gun.jpg'},
-      {'title': 'Sport', 'image': 'assets/oppenheimer.jpg'},
-      {'title': 'Animation', 'image': 'assets/inside_out.jpg'},
+      {'title': "ACTION", 'image': 'assets/Mad Max Fury Road.jpg'},
+      {'title': "ADVENTURE", 'image': 'assets/Jurassic Park.jpg'},
+      {'title': "ANIMATION", 'image': 'assets/Frozen.jpg'},
+      {'title': "BIOGRAPHY", 'image': 'assets/The Social Network.jpg'},
+      {'title': "COMEDY", 'image': 'assets/Toy Story.jpg'},
+      {'title': "CRIME", 'image': 'assets/The Dark Knight.jpg'},
+      {'title': "DRAMA", 'image': 'assets/The Revenant.jpg'},
+      {'title': "FAMILY", 'image': 'assets/Coco.jpg'},
+      {'title': "FANTASY", 'image': 'assets/Avatar.jpg'},
+      {'title': "MUSICAL", 'image': 'assets/Coco.jpg'},
+      {'title': "ROMANCE", 'image': 'assets/Titanic.jpg'},
+      {'title': "SCIENCE_FICTION", 'image': 'assets/Black Panther.jpg'},
+      {'title': "THRILLER", 'image': 'assets/Inception.jpg'},
+      {'title': "WAR", 'image': 'assets/Inglourious Basterds.jpg'},
+      {'title': "WESTERN", 'image': 'assets/Django Unchained.jpg'},
     ];
 
     return Scaffold(
@@ -42,7 +51,7 @@ class GenresPage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => GenreTappedPage(
-                                genreTitle: genre['title']!,
+                                genreTitle: Set<String>.from([genre['title']!]),
                           ),
                           ),
                         );

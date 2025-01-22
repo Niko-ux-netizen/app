@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:namer_app/model/genre.dart';
 import 'package:namer_app/model/movie.dart';
 
+
 class GenreInfo extends StatelessWidget {
   final Movie movie;
 
@@ -9,6 +10,7 @@ class GenreInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(movie);
     return Column(
       children: [
         SizedBox(height: MediaQuery.of(context).size.height * 0.93),
@@ -17,13 +19,12 @@ class GenreInfo extends StatelessWidget {
           runSpacing: 8.0,
           children: [
             ...movie.genres.map(
-              (genre) => Container(
+                  (genre) => Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24.0,
                   vertical: 8.0,
                 ),
                 decoration: BoxDecoration(
-                  color: genre.color,
                   borderRadius: BorderRadius.circular(20.0),
                   boxShadow: [
                     BoxShadow(
@@ -35,7 +36,7 @@ class GenreInfo extends StatelessWidget {
                   ],
                 ),
                 child: Text(
-                  genre.name,
+                  genre,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.white,
@@ -109,7 +110,7 @@ class GenreInfo extends StatelessWidget {
                   Text(
                     "4.5/5.0",
                     style:
-                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                    TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

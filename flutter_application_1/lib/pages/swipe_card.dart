@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:namer_app/model/movie.dart';
+import 'package:namer_app/service/user_fetcher.dart';
+
+import '../service/movie_fetcher.dart';
+
 
 class SwipeCard extends StatelessWidget {
   final List<Movie> movies;
@@ -14,15 +18,21 @@ class SwipeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String userEmail = "Caann@mail.com";
+    final UserService userService = UserService();
+
     return SizedBox.expand(
       child: CardSwiper(
         cardsCount: movies.length,
-        onSwipe: (previousIndex, newIndex, direction) {
+        onSwipe: (previousIndex, newIndex, direction) async {
+          final movie = movies[previousIndex];
           if (direction == CardSwiperDirection.left) {
-            print("Swiped to left");
-          }
-          if (direction == CardSwiperDirection.right) {
-            print("Swiped to right");
+            print("Swiped to left: Adding movie to 'To Be denied'");
+            await userService.addMovieToDenied(userEmail, movie.title);
+          } else if (direction == CardSwiperDirection.right) {
+            print("Swiped to right: Adding movie to 'to be watched'");
+            await userService.addMovieToBeWatched(userEmail, movie.title);
+
           }
           if (newIndex != null) {
             onSwipe(newIndex);
@@ -40,9 +50,10 @@ class SwipeCard extends StatelessWidget {
           print("Calculated opacity: $opacity");
 
           Color overlayColor = Colors.transparent;
-          if (offset < 0) {
+          if (offset > 0) {
             overlayColor = Colors.green.withOpacity(opacity);
-          } else if (offset > 0) {
+
+          } else if (offset < 0) {
             overlayColor = Colors.red.withOpacity(opacity);
           }
 
@@ -73,7 +84,7 @@ class SwipeCard extends StatelessWidget {
           );
         },
         allowedSwipeDirection:
-            AllowedSwipeDirection.only(left: true, right: true),
+        AllowedSwipeDirection.only(left: true, right: true),
       ),
     );
   }

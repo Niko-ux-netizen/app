@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'Movie.dart';
+
+import '../model/movie.dart';
+
 
 class MovieService {
 
@@ -26,14 +28,22 @@ class MovieService {
 
   Future<List<Movie>> getMoviesForSwipe(String email, bool allMode) async {
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:8080/api/movie/swipe/user?email=$email&allMode=$allMode'),
+      Uri.parse(
+          'http://10.0.2.2:8080/api/movie/swipe/user?email=$email&allMode=$allMode'),
     );
-
-    if (response.statusCode == 200) {
-      final List<dynamic> moviesJson = json.decode(response.body);
-      return moviesJson.map((json) => Movie.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to load swipe movies: ${response.reasonPhrase}');
+    print('Response body: ${response.body}');
+    try {
+      final jsonData = json.decode(response.body) as List<dynamic>;
+      return jsonData.map((movieJson) {
+        if (movieJson is Map<String, dynamic>) {
+          return Movie.fromJson(movieJson);
+        } else {
+          throw Exception('Invalid movie format in response.');
+        }
+      }).toList();
+    } catch (e) {
+      print('Error parsing movies: $e');
+      throw Exception('Failed to parse movies: $e');
     }
   }
 

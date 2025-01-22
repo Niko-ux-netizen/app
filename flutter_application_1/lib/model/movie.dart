@@ -1,47 +1,45 @@
 import 'dart:convert';
 
-import 'package:namer_app/model/genre.dart';
-import 'package:http/http.dart' as http;
-
 class Movie {
+  final String id; // Keeping id as String for consistency
   final String title;
-  final List<Genre> genres;
+  final Set<String> genres; // Set of strings for genres
+  final String? image; // Optional image
   final String producer;
   final String description;
 
   Movie({
+    required this.id,
     required this.title,
     required this.genres,
+    this.image,
     required this.producer,
     required this.description,
   });
 
-  factory Movie.fromJson(Map<String, dynamic> json) => Movie(
-        title: json['title'],
-        genres: (json['genres'] as List<dynamic>)
-            .map((genre) => Genre.fromJson(genre))
-            .toList(),
-        producer: json['producer'],
-        description: json['description'],
-      );
+  // Factory constructor for creating a Movie from a JSON object
+  factory Movie.fromJson(Map<String, dynamic> json) {
+    return Movie(
+      id: json['id'].toString(), // Convert id to String for consistency
+      title: json['title'] as String,
+      genres: (json['genres'] as List<dynamic>)
+          .map((genre) => genre.toString())
+          .toSet(),
+      image: json['image'] as String?, // Optional field
+      producer: json['producer'] as String? ?? 'Unknown Producer', // Default value if missing
+      description: json['description'] as String? ?? 'No description available', // Default value if missing
+    );
+  }
 
-  static List<Movie> fromJsonList(List<dynamic> jsonList) =>
-      jsonList.map((json) => Movie.fromJson(json)).toList();
-}
-
-Future<List<Movie>> fetchMovies() async {
-  try {
-    final uri = Uri.parse("http://10.0.2.2:8080/api/movies");
-    final response = await http.get(uri);
-
-    if (response.statusCode == 200) {
-      final List<dynamic> moviesJson = json.decode(response.body);
-      return Movie.fromJsonList(moviesJson);
-    } else {
-      throw Exception('Failed to load movies: ${response.statusCode}');
-    }
-  } catch (error) {
-    print("Error fetching movies: $error");
-    throw Exception('Failed to load movies');
+  // Method to convert a Movie object to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'genres': genres.toList(), // Convert Set<String> to List<String>
+      'image': image,
+      'producer': producer,
+      'description': description,
+    };
   }
 }

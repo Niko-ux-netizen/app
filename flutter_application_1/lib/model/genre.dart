@@ -19,7 +19,11 @@ class Genre {
     }
   }
 
+  // Factory constructor for deserialization from JSON
   factory Genre.fromJson(Map<String, dynamic> json) => Genre(
-        name: json['name'],
-      );
+    name: json['name'],
+  );
+
+  // Method to serialize the Genre object back to JSON
+  Map<String, dynamic> toJson() => {'name': name};
 }

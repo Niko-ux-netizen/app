@@ -6,13 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:namer_app/pages/rate_page.dart';
 
-import '../service/Movie.dart';
+import 'package:namer_app/model/movie.dart';
 import '../service/movie_fetcher.dart';
 
+import 'package:flutter/material.dart';
+import 'package:namer_app/pages/rate_page.dart';
+import 'package:namer_app/model/movie.dart';
+import 'package:namer_app/service/movie_fetcher.dart';
+
 class GenreTappedPage extends StatefulWidget {
-  final String genreTitle;
+  final Set<String> genreTitle;
 
   const GenreTappedPage({super.key, required this.genreTitle});
+
   @override
   _GenreTappedPageState createState() => _GenreTappedPageState();
 }
@@ -24,9 +30,7 @@ class _GenreTappedPageState extends State<GenreTappedPage> {
   @override
   void initState() {
     super.initState();
-    _moviesByGenre = movieService.getAllMovies();
-
-    // Debug: Log the Future for movies
+    _moviesByGenre = movieService.getMoviesBySomeGenres(widget.genreTitle);
     _moviesByGenre.then((movies) {
       print('Fetched movies: $movies');
     }).catchError((error) {
@@ -38,7 +42,7 @@ class _GenreTappedPageState extends State<GenreTappedPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.genreTitle),
+        title: Text(widget.genreTitle.isEmpty ? 'All Movies' : widget.genreTitle.join(', ')),
         backgroundColor: Colors.black,
       ),
       body: FutureBuilder<List<Movie>>(
@@ -54,7 +58,6 @@ class _GenreTappedPageState extends State<GenreTappedPage> {
             return const Center(child: Text('No movies found'));
           }
 
-          // Debug: Log the movies data
           final movies = snapshot.data!;
           print('Movies in FutureBuilder: $movies');
 
@@ -71,17 +74,6 @@ class _GenreTappedPageState extends State<GenreTappedPage> {
               itemBuilder: (context, index) {
                 final movie = movies[index];
                 return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RatePage(
-                          title: movie.title,
-                          image: movie.image ?? 'https://via.placeholder.com/150',
-                        ),
-                      ),
-                    );
-                  },
                   child: Card(
                     color: Colors.black,
                     shape: RoundedRectangleBorder(
@@ -96,9 +88,9 @@ class _GenreTappedPageState extends State<GenreTappedPage> {
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10),
                             ),
-                          child: Image.network(
-                            movie.image ?? 'https://via.placeholder.com/150', // Use placeholder if image is null
-                            fit: BoxFit.cover,
+                            child: Image.asset(
+                              'assets/${movie.title}.jpg', // Load image from assets
+                              fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                                 print('Image load error: $error');
                                 return const Center(
